@@ -139,10 +139,9 @@ public class KeyStoreActivity extends AppCompatActivity implements View.OnClickL
             keyStore.load(null);
 
             KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(alias, null);
-            RSAPublicKey publicKey = (RSAPublicKey) privateKeyEntry.getCertificate().getPublicKey();
 
-            Cipher input = Cipher.getInstance("RSA/ECB/PKCS1Padding", "AndroidOpenSSL");
-            input.init(Cipher.ENCRYPT_MODE, publicKey);
+            Cipher input = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+            input.init(Cipher.ENCRYPT_MODE, privateKeyEntry.getCertificate().getPublicKey());
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             CipherOutputStream cipherOutputStream = new CipherOutputStream(outputStream, input);
